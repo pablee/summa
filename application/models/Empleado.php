@@ -4,6 +4,74 @@ include_once "Database.php";
 
 class Empleado
 {
+    private $id;
+    private $nombre;
+    private $apellido;
+    private $edad;
+    private $tipo;
+    private $empresa;
+
+
+    public function getId(){
+        return $this->id;
+    }
+
+
+    public function setId($id){
+        $this->id = $id;
+    }
+
+
+    public function getNombre(){
+        return $this->nombre;
+    }
+
+
+    public function setNombre($nombre){
+        $this->nombre = $nombre;
+    }
+
+
+    public function getApellido(){
+        return $this->apellido;
+    }
+
+
+    public function setApellido($apellido){
+        $this->apellido = $apellido;
+    }
+
+
+    public function getEdad(){
+        return $this->edad;
+    }
+
+
+    public function setEdad($edad){
+        $this->edad = $edad;
+    }
+
+
+    public function getTipo(){
+        return $this->tipo;
+    }
+
+
+    public function setTipo($tipo){
+        $this->tipo = $tipo;
+    }
+
+
+    public function getEmpresa(){
+        return $this->empresa;
+    }
+
+
+    public function setEmpresa($empresa){
+        $this->empresa = $empresa;
+    }
+
+
     public function listar_profesion()
     {
         $db = new database();
@@ -55,14 +123,14 @@ class Empleado
     }
 
 
-    public function guardar($empleado)
+    public function guardar()
     {
         $db = new database();
         $db->conectar();
 
         $consulta = "INSERT INTO empleado(nombre, apellido, edad, tipo_empleado, empresa)
-                     VALUES ('$empleado[nombre]', '$empleado[apellido]', '$empleado[edad]', '$empleado[especialidad]',
-                     '$empleado[id_empresa]');";
+                     VALUES ('$this->nombre', '$this->apellido', '$this->edad', '$this->tipo',
+                     '$this->empresa');";
 
         mysqli_query($db->conexion, $consulta)  or die ("No se pudo guardar el empleado.");
     }
@@ -74,7 +142,7 @@ class Empleado
         $db->conectar();
 
         $consulta = "SELECT EMP.id, EMP.nombre, EMP.apellido, EMP.edad, EMP.tipo_empleado, TIP.id_profesion,
-                            PRO.nombre AS pro_nombre, TIP.id_especialidad, ESP.nombre AS esp_nombre
+                            PRO.nombre AS pro_nombre, TIP.id_especialidad, ESP.nombre AS esp_nombre, EMP.empresa
                      FROM empleado EMP
                      JOIN tipo_empleado TIP ON EMP.tipo_empleado = TIP.id
                      JOIN profesion PRO ON TIP.id_profesion = PRO.id
@@ -97,16 +165,12 @@ class Empleado
             $empleado["pro_nombre"] = $emp["pro_nombre"];
             $empleado["id_especialidad"] = $emp["id_especialidad"];
             $empleado["esp_nombre"] = $emp["esp_nombre"];
+            $empleado["empresa"] = $emp["empresa"];
         }
 
         return $empleado;
     }
 
-
-
-
-
-
 }
 
 
@@ -127,103 +191,3 @@ class Empleado
 
 
 
-
-
-
-/**********************************************************************************************************************************
-    public function listar()
-    {
-        $db=new database();
-        $db->conectar();
-
-        $consulta ="SELECT *
-                    FROM wp_woocommerce_order_items ORD
-                    JOIN wp_woocommerce_order_img_cropped IMG ON ORD.order_id = IMG.order_id;";
-
-        $resultado=mysqli_query($db->conexion, $consulta)
-        or die ("No se pueden mostrar los pedidos.");
-
-        $pedidos = array(array("order_item_id", "order_item_name", "order_item_type", "order_id", "url_cropped_img"));
-
-        $i=0;
-        while($pedido = mysqli_fetch_assoc($resultado))
-        {
-            $pedidos[$i]["order_item_id"]=$pedido["order_item_id"];
-            $pedidos[$i]["order_item_name"]=$pedido["order_item_name"];
-            $pedidos[$i]["order_item_type"]=$pedido["order_item_type"];
-            $pedidos[$i]["order_id"]=$pedido["order_id"];
-            $pedidos[$i]["url_cropped_img"]=$pedido["url_cropped_img"];
-            $i++;
-        }
-
-        return $pedidos;
-    }
-
-
-    public function guardar($order, $img)
-    {
-        $db=new database();
-        $db->conectar();
-
-        $consulta = "SELECT *
-                     FROM wp_woocommerce_order_img_cropped
-                     WHERE order_id = '$order'
-                     AND url_cropped_img = '$img';";
-
-        $resultado = mysqli_query($db->conexion, $consulta) or die ("No se puede guardar el pedido.");
-
-        if(mysqli_num_rows($resultado))
-        {
-            echo "El pedido ya fue procesado";
-        }
-        else
-        {
-            $consulta = "INSERT INTO wp_woocommerce_order_img_cropped (order_id, url_cropped_img)
-                         VALUES ('$order', '$img')";
-
-            $resultado=mysqli_query($db->conexion, $consulta) or die ("No se puede guardar el pedido.");
-        }
-
-    }
-
-
-    public function buscar($order_id)
-    {
-        $db=new database();
-        $db->conectar();
-
-        $consulta = "SELECT *
-                     FROM wp_woocommerce_order_items ORD
-                     JOIN wp_woocommerce_order_itemmeta META ON ORD.order_item_id = META.order_item_id
-                     JOIN wp_woocommerce_order_img_cropped IMG ON ORD.order_id = IMG.order_id
-                     WHERE ORD.order_id = '$order_id';";
-
-        $resultado=mysqli_query($db->conexion, $consulta)
-        or die ("No se pueden ver el pedido.");
-
-        $pedido = array(array("order_item_id", "order_item_name", "order_item_type", "order_id", "url_cropped_img"));
-
-        while($p = mysqli_fetch_assoc($resultado))
-        {
-            $pedido["order_item_id"]=$p["order_item_id"];
-            $pedido["order_item_name"]=$p["order_item_name"];
-            $pedido["order_item_type"]=$p["order_item_type"];
-            $pedido["order_id"]=$p["order_id"];
-            $pedido["url_cropped_img"]=$p["url_cropped_img"];
-        }
-        /*
-        $i=0;
-        while($pedido = mysqli_fetch_assoc($resultado))
-        {
-            $pedidos[$i]["order_item_id"]=$pedido["order_item_id"];
-            $pedidos[$i]["order_item_name"]=$pedido["order_item_name"];
-            $pedidos[$i]["order_item_type"]=$pedido["order_item_type"];
-            $pedidos[$i]["order_id"]=$pedido["order_id"];
-            $pedidos[$i]["url_cropped_img"]=$pedido["url_cropped_img"];
-            $i++;
-        }
-
-        return $pedido;
-    }
-}
-*/

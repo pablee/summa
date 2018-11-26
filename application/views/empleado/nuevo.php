@@ -14,13 +14,13 @@
             <label for="nombre">Nombre</label>
             <input type="text" class="form-control" name="grilla[nombre]" required>
 
-            <label for="nombre">Apellido</label>
+            <label for="apellido">Apellido</label>
             <input type="text" class="form-control" name="grilla[apellido]" required>
 
-            <label for="nombre">Edad</label>
+            <label for="edad">Edad</label>
             <input type="text" class="form-control" name="grilla[edad]" required>
 
-            <label for="nombre">Tipo de empleado</label>
+            <label for="tipo">Tipo de empleado</label>
             <select class="form-control" name="grilla[tipo]" id="tipo" onchange="especificacion()" required>
                 <option value=""></option>
                 <?php foreach($profesiones as $profesion): ?>

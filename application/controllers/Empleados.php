@@ -9,7 +9,10 @@ class Empleados extends CI_Controller
         $this->load->helper('url');
         $this->load->model('empresa');
         $this->load->model('empleado');
+        $this->load->model('programador');
+        $this->load->model('disenador');
     }
+
 
     public function nuevo()
     {
@@ -24,8 +27,16 @@ class Empleados extends CI_Controller
 
     public function agregar()
     {
+        $emp = new Empleado();
         $empleado = $this->input->post('grilla');
-        $this->empleado->guardar($empleado);
+
+        $emp->setNombre($empleado["nombre"]);
+        $emp->setApellido($empleado["apellido"]);
+        $emp->setEdad($empleado["edad"]);
+        $emp->setTipo($empleado["tipo"]);
+        $emp->setEmpresa($empleado["id_empresa"]);
+
+        $emp->guardar();
 
         $this->load->view('header');
         $this->load->view('empleado/nuevo');
@@ -63,6 +74,28 @@ class Empleados extends CI_Controller
     {
         $id_empleado = $this->input->post("id_empleado");
         $data["empleado"] = $this->empleado->buscar($id_empleado);
+        $empleado = $data["empleado"];
+
+        if($empleado["id_profesion"]=="1")
+        {
+            $pro = new Programador();
+            $pro->setNombre($empleado["nombre"]);
+            $pro->setApellido($empleado["apellido"]);
+            $pro->setEdad($empleado["edad"]);
+            $pro->setTipo($empleado["tipo"]);
+            $pro->setEmpresa($empleado["empresa"]);
+            $pro->setLenguaje($empleado["id_especialidad"]);
+        } 
+        else if($empleado["id_profesion"]=="2")
+        {
+            $dis = new Disenador();
+            $dis->setNombre($empleado["nombre"]);
+            $dis->setApellido($empleado["apellido"]);
+            $dis->setEdad($empleado["edad"]);
+            $dis->setTipo($empleado["tipo_empleado"]);
+            $dis->setEmpresa($empleado["empresa"]);
+            $dis->setTipo_disenador($empleado["id_especialidad"]);
+        }
 
         $this->load->view('header');
         $this->load->view('empleado/encontrado', $data);
