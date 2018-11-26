@@ -1,0 +1,15 @@
+1- Para instalar la aplicacion se debe copiar la carpeta "summa" en el directorio raiz del servidor local.
+2- Para acceder se debe ingresar en la siguiente url "http://localhost/summa/".
+
+-El framework utilizado para hacer el desarrollo fue CodeIgniter, el motivo por el que se eligio este framework, 
+fue para implementar el patron mvc y obtener las ventajas que nos proporciona.
+
+-Pasos realizados para solucionar los requerimientos solicitados:
+Se crearon las clases Empresa y Empleado, tambien se creo la clase Programador y Disenador las cuales heredan los metodos 
+y atributos de Empleado.
+Se crearon dos controladores cada uno para manejar las solicitudes correspondientes a su clase y se crearon las vistas necesarias. 
+Además, se implemento el uso de AJAX para desplegar opciones nuevas en los formularios para agregar un nuevo empleado y se persistieron
+los datos de los empleados y empresas en una base de datos.
+
+
+
