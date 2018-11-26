@@ -1,0 +1,14 @@
+
+.labels {
+    background-color: blue;
+    color: white;
+    margin: 1% auto;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.labels a:link, a:visited {
+    color: white;
+}

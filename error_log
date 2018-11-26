@@ -1,0 +1,2 @@
+[13-Nov-2018 16:35:41 America/Argentina/Buenos_Aires] PHP Fatal error:  Class 'database' not found in /home/adminalfa/public_html/app/application/models/Categorias.php on line 30
+[13-Nov-2018 16:37:01 America/Argentina/Buenos_Aires] PHP Fatal error:  require(): Failed opening required 'dbconfig.php' (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/adminalfa/public_html/app/application/models/Database.php on line 3
