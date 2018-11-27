@@ -17,7 +17,7 @@
    La tabla "profesion" almacena los id y nombres de cada profesion.
    La tabla "especialidad" almacena los id y nombres de las especialidades.
 
-6- 
+6- Existen validaciones hechas en el frontend y en el backend.  
 
 
 -El framework utilizado para hacer el desarrollo fue CodeIgniter, el motivo por el que se eligio este framework, 
