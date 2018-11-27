@@ -15,6 +15,9 @@
           </tr>
          </thead>
          <tbody>
+         <?php if($empleados == true): ?>
+             La empresa seleccionada no cuenta con ningun empleado en su base de datos.
+         <?php else: ?>
           <?php foreach($empleados as $empleado): ?>
            <tr>
                <td><?php echo ucfirst($empleado['id']); ?></td>
@@ -25,6 +28,7 @@
                <td><?php echo ucfirst($empleado['esp_nombre']); ?></td>
            </tr>
           <?php endforeach; ?>
+         <?php endif; ?>
          </tbody>
         </table>
         </div>

@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 include_once "Database.php";
 
+
 class Empresa
 {
 	private $id;
@@ -41,7 +42,12 @@ class Empresa
         $consulta = "INSERT INTO empresa (nombre)
                      VALUES ('$this->nombre');";
 
-        mysqli_query($db->conexion, $consulta)  or die ("No se pudo guardar la empresa");
+        try {
+            mysqli_query($db->conexion, $consulta);
+        } catch (Exception $e) {
+            error_log( print_r($e, true) );
+            echo "\n Error: ".$e->getMessage()."\n";
+        }
     }
 
 
@@ -53,16 +59,19 @@ class Empresa
         $consulta = "SELECT *
                      FROM empresa;";
 
-        $resultado = mysqli_query($db->conexion, $consulta)
-        or die ("No se pueden listar las empresas.");
+        try {
+            $resultado = mysqli_query($db->conexion, $consulta);
+            $empresas = array(array("id", "nombre"));
 
-        $empresas = array(array("id", "nombre"));
-
-        $i = 0;
-        while ($empresa = mysqli_fetch_assoc($resultado)) {
-            $empresas[$i]["id"] = $empresa["id"];
-            $empresas[$i]["nombre"] = $empresa["nombre"];
-            $i++;
+            $i = 0;
+            while ($empresa = mysqli_fetch_assoc($resultado)) {
+                $empresas[$i]["id"] = $empresa["id"];
+                $empresas[$i]["nombre"] = $empresa["nombre"];
+                $i++;
+            }
+        } catch (Exception $e) {
+            error_log( print_r($e, true) );
+            echo "\n Error: ".$e->getMessage()."\n";
         }
 
         return $empresas;
@@ -82,27 +91,38 @@ class Empresa
                      JOIN especialidad ESP ON TIP.id_especialidad = ESP.id
                      WHERE empresa = '$id_empresa';";
 
-        $resultado = mysqli_query($db->conexion, $consulta)
-        or die ("No se pueden listar los empleados.");
+        try {
+            $resultado = mysqli_query($db->conexion, $consulta);
+            if(mysqli_num_rows($resultado)>=1)
+            {
+                $empleados = array(array("id", "nombre", "apellido", "edad", "tipo_empleado", "id_profesion", "pro_nombre",
+                    "id_especialidad", "esp_nombre"));
 
-        $empleados = array(array("id", "nombre", "apellido", "edad", "tipo_empleado", "id_profesion", "pro_nombre",
-                     "id_especialidad", "esp_nombre"));
+                $i = 0;
+                while ($empleado = mysqli_fetch_assoc($resultado)) {
+                    $empleados[$i]["id"] = $empleado["id"];
+                    $empleados[$i]["nombre"] = $empleado["nombre"];
+                    $empleados[$i]["apellido"] = $empleado["apellido"];
+                    $empleados[$i]["edad"] = $empleado["edad"];
+                    $empleados[$i]["tipo_empleado"] = $empleado["tipo_empleado"];
+                    $empleados[$i]["id_profesion"] = $empleado["id_profesion"];
+                    $empleados[$i]["pro_nombre"] = $empleado["pro_nombre"];
+                    $empleados[$i]["id_especialidad"] = $empleado["id_especialidad"];
+                    $empleados[$i]["esp_nombre"] = $empleado["esp_nombre"];
+                    $i++;
+                }
 
-        $i = 0;
-        while ($empleado = mysqli_fetch_assoc($resultado)) {
-            $empleados[$i]["id"] = $empleado["id"];
-            $empleados[$i]["nombre"] = $empleado["nombre"];
-            $empleados[$i]["apellido"] = $empleado["apellido"];
-            $empleados[$i]["edad"] = $empleado["edad"];
-            $empleados[$i]["tipo_empleado"] = $empleado["tipo_empleado"];
-            $empleados[$i]["id_profesion"] = $empleado["id_profesion"];
-            $empleados[$i]["pro_nombre"] = $empleado["pro_nombre"];
-            $empleados[$i]["id_especialidad"] = $empleado["id_especialidad"];
-            $empleados[$i]["esp_nombre"] = $empleado["esp_nombre"];
-            $i++;
+                return $empleados;
+            }else{
+                $no_empleados = true;
+                return $no_empleados;
+            }
+        } catch (Exception $e) {
+            error_log( print_r($e, true) );
+            echo "\n Error: ".$e->getMessage()."\n";
         }
 
-        return $empleados;
+
     }
 
 
@@ -115,13 +135,18 @@ class Empresa
                      FROM empleado
                      WHERE empresa = '$id_empresa';";
 
-        $resultado = mysqli_query($db->conexion, $consulta)
-        or die ("No se pudo calcular el promedio.");
-
-        $calculo = mysqli_fetch_assoc($resultado);
-        $promedio = $calculo["promedio"];
+        try {
+            $resultado = mysqli_query($db->conexion, $consulta);
+            $calculo = mysqli_fetch_assoc($resultado);
+            $promedio = $calculo["promedio"];
+        } catch (Exception $e) {
+            error_log( print_r($e, true) );
+            echo "\n Error: ".$e->getMessage()."\n";
+        }
 
         return $promedio;
     }
+
+
 }		
 ?>

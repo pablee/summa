@@ -16,12 +16,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php echo ucfirst($empleado['id']); ?></td>
-                        <td><?php echo ucfirst($empleado['nombre']); ?></td>
-                        <td><?php echo ucfirst($empleado['apellido']); ?></td>
-                        <td><?php echo ucfirst($empleado['edad']); ?></td>
-                        <td><?php echo ucfirst($empleado['pro_nombre']); ?></td>
-                        <td><?php echo ucfirst($empleado['esp_nombre']); ?></td>
+                        <?php if($empleado == true): ?>
+                            El id ingresado no corresponde con ningun empleado.
+                        <?php else: ?>
+                            <td><?php echo ucfirst($empleado['id']); ?></td>
+                            <td><?php echo ucfirst($empleado['nombre']); ?></td>
+                            <td><?php echo ucfirst($empleado['apellido']); ?></td>
+                            <td><?php echo ucfirst($empleado['edad']); ?></td>
+                            <td><?php echo ucfirst($empleado['pro_nombre']); ?></td>
+                            <td><?php echo ucfirst($empleado['esp_nombre']); ?></td>
+                        <?php endif; ?>
                     </tr>
                 </tbody>
             </table>
