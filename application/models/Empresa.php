@@ -12,6 +12,10 @@ class Empresa
         return $this->id;
     }
 
+    public function setId(){
+        return $this->id;
+    }
+
     public function getNombre(){
         return $this->nombre;
     }
@@ -25,7 +29,7 @@ class Empresa
     }
 
     public function setEmpleados(){
-        $this->empleados;
+        $this->empleados = $this->listar_empleados($this->id);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +84,7 @@ class Empresa
 
         $resultado = mysqli_query($db->conexion, $consulta)
         or die ("No se pueden listar los empleados.");
-        
+
         $empleados = array(array("id", "nombre", "apellido", "edad", "tipo_empleado", "id_profesion", "pro_nombre",
                      "id_especialidad", "esp_nombre"));
 
