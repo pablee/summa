@@ -114,8 +114,8 @@ class Empresa
 
                 return $empleados;
             }else{
-                $no_empleados = true;
-                return $no_empleados;
+                $empleados = "0";
+                return $empleados;
             }
         } catch (Exception $e) {
             error_log( print_r($e, true) );

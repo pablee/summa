@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <?php if($empleado == true): ?>
+                        <?php if($empleado == "0"): ?>
                             El id ingresado no corresponde con ningun empleado.
                         <?php else: ?>
                             <td><?php echo ucfirst($empleado['id']); ?></td>

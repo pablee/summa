@@ -15,7 +15,7 @@
           </tr>
          </thead>
          <tbody>
-         <?php if($empleados == true): ?>
+         <?php if($empleados == "0"): ?>
              La empresa seleccionada no cuenta con ningun empleado en su base de datos.
          <?php else: ?>
           <?php foreach($empleados as $empleado): ?>

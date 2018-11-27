@@ -1,5 +1,24 @@
 1- Para instalar la aplicacion se debe copiar la carpeta "summa" en el directorio raiz del servidor local.
+
 2- Para acceder se debe ingresar en la siguiente url "http://localhost/summa/".
+
+3- La aplicacion se encuentra dentro de la carpeta "application" y dentro de controlles, models y views se encuentran
+   los archivos php.
+
+4- Dentro de la carpeta "summa" existe un archivo llamado "summa.sql" donde se encuentra el script de la base de datos 
+   y las tablas que la componen.
+
+5- Existen 5 tablas, "empresa", "empleado", "especialidad", "profesion" y "tipo_empleado".
+   La tabla "empresa" contiene "id" como PK y "nombre".
+   La tabla "empleado" posee todos los datos asociados al empleado, tiene un "id" como PK y posee dos FK
+   "tipo_empleado" y "empresa".
+   La tabla "tipo_empleado" relaciona las profesiones y las especialidades, tiene un "id" como PK y dos FK
+   "id_profesion" y "id_especialidad".
+   La tabla "profesion" almacena los id y nombres de cada profesion.
+   La tabla "especialidad" almacena los id y nombres de las especialidades.
+
+6- 
+
 
 -El framework utilizado para hacer el desarrollo fue CodeIgniter, el motivo por el que se eligio este framework, 
 fue para implementar el patron mvc y obtener las ventajas que nos proporciona.

@@ -193,8 +193,8 @@ class Empleado
                 return $empleado;
             }
             else{
-                $no_encontrado = true;
-                return $no_encontrado;
+                $empleado = "0";
+                return $empleado;
             }
         } catch (Exception $e) {
             error_log( print_r($e, true) );
