@@ -6,9 +6,11 @@ class Empresa
 {
 	private $id;
     private $nombre;
-    //private $empleados = array();
     private $empleados = array();
 
+    public function getId(){
+        return $this->id;
+    }
 
     public function getNombre(){
         return $this->nombre;
@@ -78,7 +80,7 @@ class Empresa
 
         $resultado = mysqli_query($db->conexion, $consulta)
         or die ("No se pueden listar los empleados.");
-
+        
         $empleados = array(array("id", "nombre", "apellido", "edad", "tipo_empleado", "id_profesion", "pro_nombre",
                      "id_especialidad", "esp_nombre"));
 
